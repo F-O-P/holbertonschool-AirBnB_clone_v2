@@ -68,7 +68,7 @@ def show_the_states():
 def show_the_cities():
     """ function that displays a HTML page displaying cities by state """
     states = storage.all(State)
-    return redner_template('8-cities_by_states.html', states=states)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
