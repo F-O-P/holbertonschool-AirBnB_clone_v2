@@ -58,7 +58,7 @@ def its_so_odd(input):
 def show_the_states():
     """ function that displays a HTML page that displays all states created """
     states = storage.all()
-    return render_template('7-states_list.html', state_name=states)
+    return render_template('7-states_list.html', states=states)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
