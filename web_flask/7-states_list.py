@@ -56,6 +56,7 @@ def its_so_odd(input):
         input = '{} is odd'.format(input)
     return render_template('6-number_odd_or_even.html', can_you_even=input)
 
+
 @app.route('/states_list', strict_slashes=False)
 def show_the_states():
     """ function that displays a HTML page that displays all states created """
@@ -67,6 +68,7 @@ def show_the_states():
 def teardown(self):
     """ removes current SQLAlchemy Session """
     storage.close()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
