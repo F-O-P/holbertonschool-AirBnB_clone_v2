@@ -7,6 +7,10 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
+@app.teardown_appcontext
+def teardown(exception):
+    storage.close()
+
 @app.route('/', strict_slashes=False)
 def greeting():
     """ function that returns greeting """
@@ -57,8 +61,9 @@ def its_so_odd(input):
 @app.route('/states_list', strict_slashes=False)
 def show_the_states():
     """ function that displays a HTML page that displays all states created """
-    states = storage.all()
+    states = storage.all("State")
     return render_template('7-states_list.html', states=states)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
