@@ -32,10 +32,10 @@ def parseltongue(hiss="is cool"):
     return 'Python {}'.format(hiss.replace('_', ' '))
 
 
-@app.route('/number/<input>', strict_slashes=False)
-def digis(input):
+@app.route('/number/<int:input>', strict_slashes=False)
+def digit(input):
     """ function that displays a number if it is an integer """
-    if input.isdigit():
+    if isinstance(n, int):
         return '{} is a number'.format(input)
 
 
