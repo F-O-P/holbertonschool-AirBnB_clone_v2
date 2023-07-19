@@ -35,7 +35,7 @@ def parseltongue(hiss="is cool"):
 @app.route('/number/<int:input>', strict_slashes=False)
 def digit(input):
     """ function that displays a number if it is an integer """
-    if isinstance(n, int):
+    if isinstance(input, int):
         return '{} is a number'.format(input)
 
 
