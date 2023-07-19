@@ -1,35 +1,32 @@
 #!/usr/bin/python3
-""" Starts a flask web app that returns a greeting """
-
+"""
+Script that starts a Flask web app
+"""
 from flask import Flask, render_template
-from models import storage
-from models.state import State
-
+from models import storage, State
 
 app = Flask(__name__)
 
 
-@app.route('./states', strict_slashes=False)
-def states():
-    """ function that displays a HTML page with states """
-    states = storage.all(State)
-    return render_template('9-states.html', states=states, mode='all')
-
-
-@app.route('/states/<id>', strict_slashes=False)
-def state_by_id(id):
-    """ function that displays a HTML page with citys of a state """
-    for state in storage.all(State).values():
-        if state.id == id:
-            return render_template('9-states.html', states=state, mode='id')
-        return render_template('9-states.html', states=state, mode='none')
-
-
 @app.teardown_appcontext
-def teardown(self):
-    """ closes session """
+def teardown_appcontext(exception):
     storage.close()
 
 
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    states = storage.all("State")
+    return render_template('7-states_list.html', states=states.values())
+
+@app.route('/states/<id>', strict_slashes=False)
+def states_id():
+    state = storage.get(State, id)
+    if state:
+        cities = sorted(state.cities, key=lambda city: city.name)
+        return render_template('9-states.html', state=state, cities=cities)
+    else:
+        return render_template('9-states.html', not_found=True)
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+    app.run(host='0.0.0.0', port=5000)
